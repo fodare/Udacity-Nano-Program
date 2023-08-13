@@ -29,3 +29,25 @@ az vm delete -g {resource group name} -n {vm name}
 # Delete resource group
 az group delete -n {resource group name}
 ```
+
+### Azure security best practice
+
+Task: Creating a test policy
+
+- See file `TestPolicy.json` for a custom policy definition
+
+  - Using AZ CLI
+
+    ```python
+    # Create policy
+    az ploicy definition create -n {policy name} --display-name {policy display name} --rules {policy json file}
+
+    # Assign policy
+    az policy assignment create --policy {policy name that was created}
+
+    # Unassign policy
+    az policy assignment delete --name {assignment name}
+
+    # Delete plicy definition
+    az policy definition delete --name {definition name}
+    ```
