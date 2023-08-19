@@ -51,3 +51,35 @@ Task: Creating a test policy
     # Delete plicy definition
     az policy definition delete --name {definition name}
     ```
+
+- Task 1: Creating tagging-policy
+
+  - [x] Write a policy definition to deny the creation of resources that to not have tags.
+    - see `task1Policy.json` for sample policy.
+
+    - ```python
+      az policy definition create -n tagging-policy --display-name tagging-policy --rules task1Policy.json
+
+      az policy assignment create --policy tagging-policy 
+      ```
+
+  - [x] Apply the policy definition to the subscription with the name `tagging-policy`.
+  - [x] Use `az policy assignment list` and take a screenshot of the policy.
+
+- Task 2: Packer Template
+
+  - [x] See `task1Image.json` for sample packer image
+
+  - [x] Create a resource group
+
+  - ```python
+    # create resource group
+    az group create -l westus -n test-rg
+
+    packer build {image template.json}
+
+    az image list -o table
+    ```
+
+- Task 3: Terraform Template
+  - [x] `Task1-Terraform` for sample template
