@@ -32,54 +32,54 @@ az group delete -n {resource group name}
 
 ### Azure security best practice
 
-Task: Creating a test policy
+- Task 1: Creating a test policy
 
-- See file `TestPolicy.json` for a custom policy definition
+  - See file `TestPolicy.json` for a custom policy definition
 
-  - Using AZ CLI
+    - Using AZ CLI
 
-    ```python
-    # Create policy
-    az ploicy definition create -n {policy name} --display-name {policy display name} --rules {policy json file}
+      ```python
+      # Create policy
+      az ploicy definition create -n {policy name} --display-name {policy display name} --rules {policy json file}
 
-    # Assign policy
-    az policy assignment create --policy {policy name that was created}
+      # Assign policy
+      az policy assignment create --policy {policy name that was created}
 
-    # Unassign policy
-    az policy assignment delete --name {assignment name}
+      # Unassign policy
+      az policy assignment delete --name {assignment name}
 
-    # Delete plicy definition
-    az policy definition delete --name {definition name}
-    ```
-
-- Task 1: Creating tagging-policy
-
-  - [x] Write a policy definition to deny the creation of resources that to not have tags.
-    - see `task1Policy.json` for sample policy.
-
-    - ```python
-      az policy definition create -n tagging-policy --display-name tagging-policy --rules task1Policy.json
-
-      az policy assignment create --policy tagging-policy 
+      # Delete plicy definition
+      az policy definition delete --name {definition name}
       ```
 
-  - [x] Apply the policy definition to the subscription with the name `tagging-policy`.
-  - [x] Use `az policy assignment list` and take a screenshot of the policy.
+  - Task 1: Creating tagging-policy
 
-- Task 2: Packer Template
+    - [x] Write a policy definition to deny the creation of resources that to not have tags.
+      - see `task1Policy.json` for sample policy.
 
-  - [x] See `task1Image.json` for sample packer image
+      - ```python
+        az policy definition create -n tagging-policy --display-name tagging-policy --rules task1Policy.json
 
-  - [x] Create a resource group
+        az policy assignment create --policy tagging-policy 
+        ```
 
-  - ```python
-    # create resource group
-    az group create -l westus -n test-rg
+    - [x] Apply the policy definition to the subscription with the name `tagging-policy`.
+    - [x] Use `az policy assignment list` and take a screenshot of the policy.
 
-    packer build {image template.json}
+  - Task 2: Packer Template
 
-    az image list -o table
-    ```
+    - [x] See `task1Image.json` for sample packer image
 
-- Task 3: Terraform Template
+    - [x] Create a resource group
+
+    - ```python
+      # create resource group
+      az group create -l westus -n test-rg
+
+      packer build {image template.json}
+
+      az image list -o table
+      ```
+
+  - Task 3: Terraform Template
   - [x] `Task1-Terraform` for sample template
