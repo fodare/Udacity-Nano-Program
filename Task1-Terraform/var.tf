@@ -19,4 +19,5 @@ variable "nic-count" {
 variable "nsg-count" {
   type        = number
   description = "Network security group count."
+  default     = 1
 }
