@@ -1,6 +1,7 @@
 variable "vm-count" {
   type        = number
   description = "Count of vm(s) to create"
+  default     = 1
 }
 
 variable "vm-username" {
@@ -12,6 +13,7 @@ variable "vm-username" {
 variable "nic-count" {
   type        = number
   description = "NIC count."
+  default     = 1
 }
 
 variable "nsg-count" {
