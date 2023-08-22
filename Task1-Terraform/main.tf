@@ -84,6 +84,40 @@ resource "azurerm_availability_set" "test-av-set" {
 #   backend_address_pool_id = azurerm_lb_backend_address_pool.example.id
 # }
 
+resource "azurerm_network_security_group" "test-nsg" {
+  name                = "test-nsg"
+  location            = azurerm_resource_group.test-rg.location
+  resource_group_name = azurerm_resource_group.test-rg.name
+  security_rule {
+    name                       = "SSH"
+    priority                   = 100
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "22"
+    source_address_prefix      = "*"
+    destination_address_prefix = "*"
+  }
+  security_rule {
+    access                     = "Allow"
+    direction                  = "Inbound"
+    name                       = "tls"
+    priority                   = 101
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    source_address_prefix      = "*"
+    destination_port_range     = "443"
+    destination_address_prefix = "*"
+  }
+}
+
+resource "azurerm_network_interface_security_group_association" "test-sec-gr-asso" {
+  count                     = var.nsg-count
+  network_interface_id      = element(azurerm_network_interface.example.*.id, count.index)
+  network_security_group_id = azurerm_network_security_group.test-nsg.id
+}
+
 resource "azurerm_linux_virtual_machine" "test-vm" {
   count                 = var.vm-count
   name                  = "test-vm${count.index}"
