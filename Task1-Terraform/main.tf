@@ -88,6 +88,8 @@ resource "azurerm_network_security_group" "test-nsg" {
   name                = "test-nsg"
   location            = azurerm_resource_group.test-rg.location
   resource_group_name = azurerm_resource_group.test-rg.name
+
+  #  Allow SSH to VM
   security_rule {
     name                       = "SSH"
     priority                   = 100
@@ -99,17 +101,74 @@ resource "azurerm_network_security_group" "test-nsg" {
     source_address_prefix      = "*"
     destination_address_prefix = "*"
   }
+
+  # Configure a rule to allow inbound traffic from within the same virtual network (vnet). 
+  # This rule enables communication between resources within the vnet.
   security_rule {
     access                     = "Allow"
     direction                  = "Inbound"
-    name                       = "tls"
+    name                       = "Inbound_Vnet"
     priority                   = 101
+    protocol                   = "Any"
+    source_port_range          = "*"
+    source_address_prefix      = "VirtualNetwork"
+    destination_port_range     = "Any"
+    destination_address_prefix = "Any"
+  }
+
+  # Create a rule with the lowest priority that explicitly denies all inbound traffic from the Internet. 
+  # This rule ensures that no unauthorized access is allowed into your virtual machines.
+  security_rule {
+    access                     = "Deny"
+    direction                  = "Inbound"
+    name                       = "tls"
+    priority                   = 102
     protocol                   = "Tcp"
     source_port_range          = "*"
     source_address_prefix      = "*"
     destination_port_range     = "443"
     destination_address_prefix = "*"
   }
+
+  # Create an outbound rule to allow traffic from your virtual machines to communicate with other resources 
+  # within the same vnet
+  security_rule {
+    access                     = "Allow"
+    direction                  = "Outbound"
+    name                       = "tls"
+    priority                   = 103
+    protocol                   = "*"
+    source_port_range          = "*"
+    source_address_prefix      = "VirtualNetwork"
+    destination_port_range     = "*"
+    destination_address_prefix = "VirtualNetwork"
+  }
+
+  # Configure a rule to allow inbound HTTP traffic from the load balancer to your virtual 
+  # This rule ensures that your VMs can receive HTTP requests from the load balancer.
+  security_rule {
+    access                     = "Allow"
+    direction                  = "Inbound"
+    name                       = "tls-lb"
+    priority                   = 104
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    source_address_prefix      = "AzureLoadBalancer"
+    destination_port_range     = "443"
+    destination_address_prefix = "VirtualNetwork"
+  }
+
+  # security_rule {
+  #   access                     = "Allow"
+  #   direction                  = "Inbound"
+  #   name                       = "tls"
+  #   priority                   = 102
+  #   protocol                   = "Tcp"
+  #   source_port_range          = "*"
+  #   source_address_prefix      = "*"
+  #   destination_port_range     = "443"
+  #   destination_address_prefix = "*"
+  # }
 }
 
 resource "azurerm_network_interface_security_group_association" "test-sec-gr-asso" {
