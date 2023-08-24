@@ -109,11 +109,11 @@ resource "azurerm_network_security_group" "test-nsg" {
     direction                  = "Inbound"
     name                       = "Inbound_Vnet"
     priority                   = 101
-    protocol                   = "Any"
+    protocol                   = "Tcp"
     source_port_range          = "*"
     source_address_prefix      = "VirtualNetwork"
-    destination_port_range     = "Any"
-    destination_address_prefix = "Any"
+    destination_port_range     = "*"
+    destination_address_prefix = "*"
   }
 
   # Create a rule with the lowest priority that explicitly denies all inbound traffic from the Internet. 
@@ -135,7 +135,7 @@ resource "azurerm_network_security_group" "test-nsg" {
   security_rule {
     access                     = "Allow"
     direction                  = "Outbound"
-    name                       = "tls"
+    name                       = "tls-outbound"
     priority                   = 103
     protocol                   = "*"
     source_port_range          = "*"
