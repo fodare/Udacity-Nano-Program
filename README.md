@@ -83,3 +83,19 @@ az group delete -n {resource group name}
 
   - Task 3: Terraform Template
   - [x] `Task1-Terraform` for sample template
+
+### Azure CI-CD
+
+Automating Continuous integration
+
+- Git
+- Makefile
+
+  - ```python
+    # Check the make utulity is  installed
+    which make
+
+    # Create a Makefile
+    touch Makefile
+    # See sample tmeplate in CI-CD directory.
+    ```
