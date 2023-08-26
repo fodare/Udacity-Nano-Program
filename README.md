@@ -83,3 +83,45 @@ az group delete -n {resource group name}
 
   - Task 3: Terraform Template
   - [x] `Task1-Terraform` for sample template
+
+### Azure CI-CD
+
+Automating Continuous integration
+
+- Git
+
+- Makefile
+
+  - ```python
+    # Check the make utulity is  installed
+    which make
+
+    # Create a Makefile
+    touch Makefile
+    # See sample tmeplate in CI-CD directory.
+    ```
+
+- Create virtual env
+
+  ```python
+  # Check python is installed
+  python3 --version
+
+  # install virtualenv
+  pip install  virtualenv
+
+  # Create virtual env
+  virtualenv env
+
+  # Activate virtual env
+  source env/bin/activate
+
+  # Freeze dependencies
+  pip freeze > requirements.txt
+
+  # Deactivate virtual env
+  deactivate
+  ```
+
+- See `SampleClick.py` for a sample click CLI tool.
+- See `test_hello.py` for sample pytest template.
