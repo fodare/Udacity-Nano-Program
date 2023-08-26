@@ -1,5 +1,7 @@
 # Udacity Nano degree Program
 
+[![CI](https://github.com/fodare/Udacity-Nano-Program/actions/workflows/ci.yml/badge.svg)](https://github.com/fodare/Udacity-Nano-Program/actions/workflows/ci.yml)
+
 - Program: Cloud DevOps using Microsoft Azure.
 - Link: [Here](https://www.udacity.com/course/cloud-devops-using-microsoft-azure-nanodegree--nd082)
 
