@@ -22,7 +22,7 @@ stages:
       - task: CmdLine@2
         displayName: Make install
         inputs:
-          script: 'make hello'
+          script: 'make install'
           workingDirectory: '$(Build.SourcesDirectory)/CI-CD'
           
       - task: CmdLine@2
