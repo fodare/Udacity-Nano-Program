@@ -89,6 +89,7 @@ az group delete -n {resource group name}
 Automating Continuous integration
 
 - Git
+
 - Makefile
 
   - ```python
@@ -99,3 +100,28 @@ Automating Continuous integration
     touch Makefile
     # See sample tmeplate in CI-CD directory.
     ```
+
+- Create virtual env
+
+  ```python
+  # Check python is installed
+  python3 --version
+
+  # install virtualenv
+  pip install  virtualenv
+
+  # Create virtual env
+  virtualenv env
+
+  # Activate virtual env
+  source env/bin/activate
+
+  # Freeze dependencies
+  pip freeze > requirements.txt
+
+  # Deactivate virtual env
+  deactivate
+  ```
+
+- See `SampleClick.py` for a sample click CLI tool.
+- See `test_hello.py` for sample pytest template.
