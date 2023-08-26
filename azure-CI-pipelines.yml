@@ -1,0 +1,38 @@
+pr:
+  branches:
+    include:
+      - main
+
+pool:
+  # vmImage: ubuntu-latest
+  name: Default
+
+stages:
+  - stage: Build
+    jobs:
+    - job: Build
+      displayName: Run makefile
+      steps:
+      - task: CmdLine@2
+        displayName: Make hello
+        inputs:
+          script: 'make hello'
+          workingDirectory: '$(Build.SourcesDirectory)/CI-CD'
+
+      - task: CmdLine@2
+        displayName: Make install
+        inputs:
+          script: 'make install'
+          workingDirectory: '$(Build.SourcesDirectory)/CI-CD'
+          
+      - task: CmdLine@2
+        displayName: Make lint
+        inputs:
+          script: 'make lint'
+          workingDirectory: '$(Build.SourcesDirectory)/CI-CD'
+    
+      - task: CmdLine@2
+        displayName: Make test
+        inputs:
+          script: 'make test'
+          workingDirectory: '$(Build.SourcesDirectory)/CI-CD'
