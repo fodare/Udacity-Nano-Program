@@ -35,7 +35,7 @@ stages:
             displayName: "Archive project"
             inputs:
               rootFolderOrFile: '$(System.DefaultWorkingDirectory)/CI-CD-Sample'
-              includeRootFolder: true
+              includeRootFolder: false
               archiveType: 'zip'
               archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
               replaceExistingArchive: true
@@ -55,7 +55,7 @@ stages:
         steps:
           - task: AzureWebApp@1
             inputs:
-              azureSubscription: 'Tem-Azure-connection'
+              azureSubscription: $(azureServiceConnectionId)
               appType: 'webApp'
               appName: $(webappName)
               package: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
