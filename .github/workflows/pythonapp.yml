@@ -1,0 +1,30 @@
+name: Pythonapp.yml
+on:
+   push:
+      branches: ["main"]
+   pull_request:
+      branches: ["main"]
+jobs:
+   build:
+      runs-on: ubuntu-latest
+      steps:
+         - uses: actions/checkout@v3
+         - name: Set up Python 3.5
+           uses: actions/setup-python@v1
+           with:
+              python-version: 3.5
+              
+         - name: Run make install command
+           working-directory: CI-CD-Task
+           run: |
+              make install
+           
+         - name: Run make lint command
+           working-directory: CI-CD-Task
+           run: |
+              make lint
+
+         - name: Run make test command
+           working-directory: CI-CD-Task
+           run: |
+              make test
