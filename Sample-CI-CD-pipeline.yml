@@ -25,6 +25,7 @@ stages:
               make install
               make lint
             displayName: Setup
+            workingDirectory: projectRoot
           
           - task: ArchiveFiles@2
             displayName: "Archive project"
