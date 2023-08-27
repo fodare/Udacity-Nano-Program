@@ -15,16 +15,13 @@ jobs:
          #      python-version: 3.5
 
          - name: Run make install command
-           working-directory: CI-CD-Task
-           run: |
-              make install
+           working-directory: CI-CD-Task/
+           run: make install
 
          - name: Run make lint command
-           working-directory: CI-CD-Task
-           run: |
-              make lint
+           working-directory: CI-CD-Task/
+           run: make lint
 
          - name: Run make test command
-           working-directory: CI-CD-Task
-           run: |
-              make test
+           working-directory: CI-CD-Task/
+           run: make test
