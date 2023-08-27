@@ -10,4 +10,4 @@ lint:
 test:
 	python3 -m pytest -vv test_hello.py
 
-all:	hello, install, test
+all: hello, install, test
