@@ -3,7 +3,7 @@ install:
 	pip freeze > requirements.txt &&\
 	pip install -r requirements.txt
 
-test: 
+test:
 	python -m pytest -vv test_hello.py
 
 lint:
