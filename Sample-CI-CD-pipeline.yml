@@ -21,7 +21,7 @@ stages:
         steps:
           - script: |
               make setup
-              sorce venv/bin/activate
+              source venv/bin/activate
               make install
               make lint
             displayName: Setup
