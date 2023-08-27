@@ -1,0 +1,57 @@
+pr:
+  branches:
+    include:
+      - main
+
+pool:
+  # vmImage: ubuntu-latest
+  name: Default
+
+variables:
+  azureServiceConnectionId: "Tem-Azure-connection"
+  webappName: "test-app-udacity"
+  environmentName: "flask-ml-service"
+  projectRoot: $(System.DefaultWorkingDirectory)/CI-CD-Sample
+
+stages:
+  - stage: Build
+    jobs:
+      - job: Build
+        displayName: Build
+        steps:
+          - script: |
+              make setup
+              sorce venv/bin/activate
+              make install
+              make lint
+            displayName: Setup
+          
+          - task: ArchiveFiles@2
+            displayName: "Archive project"
+            inputs:
+              rootFolderOrFile: '$(System.DefaultWorkingDirectory)/CI-CD-Sample'
+              includeRootFolder: true
+              archiveType: 'zip'
+              archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+              replaceExistingArchive: true
+              
+          - task: PublishBuildArtifacts@1
+            inputs:
+              PathtoPublish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+              ArtifactName: 'drop'
+              publishLocation: 'Container'
+
+  - stage: Deploy
+    displayName: "Deploy webApp"
+    dependsOn: Build
+    condition: succeeded()
+    jobs:
+      - job: Deploy
+        steps:
+          - task: AzureWebApp@1
+            inputs:
+              azureSubscription: 'Tem-Azure-connection'
+              appType: 'webApp'
+              appName: 'webappName'
+              package: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+              deploymentMethod: 'auto'
