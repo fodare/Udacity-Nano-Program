@@ -53,10 +53,15 @@ stages:
     jobs:
       - job: Deploy
         steps:
+          - task: DownloadBuildArtifacts@1
+            inputs:
+              buildType: 'current'
+              downloadType: 'single'
+              artifactName: 'drop'
+              downloadPath: '$(System.ArtifactsDirectory)'
           - task: AzureWebApp@1
             inputs:
-              azureSubscription: $(azureServiceConnectionId)
-              appType: 'webApp'
-              appName: $(webappName)
+              azureSubscription: 'Tem-Azure-connection'
+              appType: 'webAppLinux'
+              appName: 'test-app-udacity'
               package: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
-              deploymentMethod: 'auto'
