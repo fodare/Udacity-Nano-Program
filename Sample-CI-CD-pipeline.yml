@@ -8,10 +8,14 @@ pool:
   name: Default
 
 variables:
-  azureServiceConnectionId: "Tem-Azure-connection"
-  webappName: "test-app-udacity"
-  environmentName: "flask-ml-service"
-  projectRoot: $(System.DefaultWorkingDirectory)/CI-CD-Sample
+  - name: "azureServiceConnectionId"
+    value: "Tem-Azure-connection"
+  - name: "webappName"
+    value: "test-app-udacity"
+  - name: "environmentName"
+    value: "flask-ml-service"
+  - name: "projectRoot"
+    value: $(System.DefaultWorkingDirectory)/CI-CD-Sample
 
 stages:
   - stage: Build
@@ -25,7 +29,7 @@ stages:
               make install
               make lint
             displayName: Setup
-            workingDirectory: projectRoot
+            workingDirectory: $(projectRoot)
           
           - task: ArchiveFiles@2
             displayName: "Archive project"
