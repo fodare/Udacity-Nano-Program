@@ -1,27 +1,26 @@
-name: Pythonapp.yml
-on:
-   push:
-      branches: ["main"]
-   pull_request:
-      branches: ["main"]
+name: Python application test with Github Actions
+
+on: [push]
+
 jobs:
    build:
       runs-on: ubuntu-latest
+
       steps:
-         - uses: actions/checkout@v3
-         - name: Set up Python 3.10
+         - uses: actions/checkout@v2
+         - name: Set up Python 3.5
            uses: actions/setup-python@v1
            with:
-              python-version: 3.10.12
-
-         - name: Run make install command
+              python-version: 3.5
+         - name: Install dependencies
            working-directory: CI-CD-Task
-           run: make install
-
-         - name: Run make lint command
+           run: |
+              make install
+         - name: Lint with pylint
            working-directory: CI-CD-Task
-           run: make lint
-
-         - name: Run make test command
+           run: |
+              make lint
+         - name: Test with pytest
            working-directory: CI-CD-Task
-           run: make test
+           run: |
+              make test
