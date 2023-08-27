@@ -1,7 +1,10 @@
-pr:
-  branches:
-    include:
-      - main
+# pr:
+#   branches:
+#     include:
+#       - main
+
+trigger:
+- main
 
 pool:
   # vmImage: ubuntu-latest
@@ -64,4 +67,4 @@ stages:
               azureSubscription: 'Tem-Azure-connection'
               appType: 'webAppLinux'
               appName: 'test-app-udacity'
-              package: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+              package: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
