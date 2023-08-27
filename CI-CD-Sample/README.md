@@ -30,7 +30,7 @@ Python 3.7
 
     az group create -l westus -n test-rg
 
-    az webapp up -n {desired app service name} -g {resource group name}
+    az webapp up --sku F1 -n {desired app service name} -g {resource group name}
     ```
 
 - Create and azure pipeline. Checkout `azure-pipelines-for-self-hosted-agent.yml` for a sample pipeline template
