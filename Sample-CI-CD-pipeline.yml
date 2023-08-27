@@ -61,10 +61,10 @@ stages:
               buildType: 'current'
               downloadType: 'single'
               artifactName: 'drop'
-              downloadPath: '$(System.ArtifactsDirectory)'
+              downloadPath: '$(Build.ArtifactStagingDirectory)'
           - task: AzureWebApp@1
             inputs:
               azureSubscription: 'Tem-Azure-connection'
               appType: 'webAppLinux'
               appName: 'test-app-udacity'
-              package: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
+              package: '$(Build.ArtifactStagingDirectory)/drop/$(Build.BuildId).zip'
